@@ -74,8 +74,8 @@ button{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;font-
 /* Background images */
 .bg img{
   position:absolute;
-  width:100px;
-  height:100px;
+  width:80px;
+  height:80px;
   opacity:0.5;
   pointer-events:none;
   border-radius:10px;
@@ -110,9 +110,9 @@ button{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;font-
     <h1>💜 She said YES 💜</h1>
     <p>You just made my heart dance 🥰</p>
     <!-- Love image -->
-    <img src="https://images.unsplash.com/photo-1516728778615-2d590ea1856f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTI0MXwwfDF8c2VhcmNofDF8fGxvdmV8ZW58MHx8fHwxNjg3NDYyNjU5&ixlib=rb-4.0.3&q=80&w=400" alt="Love image">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Heart_with_arrow.png/300px-Heart_with_arrow.png" alt="Love image">
   </div>
-  <div id="gsHeart" class="gs-heart hidden">❤️<span>G & S</span></div>
+  <div id="gsHeart" class="gs-heart">❤️<span>G & S</span></div>
 </div>
 
 <script>
@@ -191,15 +191,11 @@ function yesClicked(){
   document.getElementById("valentine").classList.add("hidden");
   document.getElementById("yesScreen").classList.remove("hidden");
 
-  // Show big red G&S heart below card
-  const heart=document.getElementById("gsHeart");
-  heart.classList.remove("hidden");
-
-  // Floating purple hearts (bigger)
+  // Purple hearts bigger and continuous
   setInterval(()=>{
     let h=document.createElement("div");
     h.className="heart big-heart"; h.innerText="💜";
-    h.style.left=Math.random()*100+"%";
+    h.style.left=Math.random()*200+"%";
     document.body.appendChild(h);
     setTimeout(()=>h.remove(),4000);
   },300);
@@ -208,13 +204,13 @@ function yesClicked(){
 // Start quiz
 loadQ();
 
-// Random love images background
+// Background love images (basic symbols, flowers, teddy)
 const loveUrls=[
-  "https://images.unsplash.com/photo-1516728778615-2d590ea1856f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100",
-  "https://images.unsplash.com/photo-1502550907597-31c1c15d9f72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100",
-  "https://images.unsplash.com/photo-1513791051568-1c1b9449e7bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100",
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100",
-  "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100"
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Heart_icon_red.svg/120px-Heart_icon_red.svg.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Teddy_bear.png/120px-Teddy_bear.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Rose_Flower.png/120px-Rose_Flower.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Love_symbol.png/120px-Love_symbol.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Valentines_Heart.png/120px-Valentines_Heart.png"
 ];
 const bg=document.getElementById("bg");
 for(let y=0;y<10;y++){
