@@ -52,40 +52,39 @@ button{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;font-
 /* G & S heart */
 .gs-heart{
   position:fixed;top:50%;left:50%;
-  transform:translate(-50%,-50%) scale(0);
+  transform:translate(-50%,-50%) scale(1);
   font-size:80px;color:#e91e63;
-  animation:popHeart 1s ease-out forwards;
   z-index:11;text-align:center;
 }
 .gs-heart span{
-  position:absolute;top:35%;left:50%;
-  transform:translateX(-50%);
+  display:block;
   font-size:30px;color:white;font-weight:bold;
+  margin-top:-50px;
 }
 
 /* YES screen image */
-#yesScreen img{width:200px;}
+#yesScreen img{width:200px;margin-top:20px;}
 
-/* BTS floating images */
+/* BTS background */
 .bts img{
   position:absolute;
-  width:70px;
-  height:70px;
-  opacity:0.5;
+  width:60px;
+  height:60px;
+  opacity:0.4;
   pointer-events:none;
   border-radius:10px;
   animation:floatBTS 20s linear infinite;
 }
 @keyframes floatBTS{
   0%{transform:translateY(0px);}
-  50%{transform:translateY(-200px);}
+  50%{transform:translateY(-100px);}
   100%{transform:translateY(0px);}
 }
 </style>
 </head>
 <body>
 
-<!-- BTS floating images -->
+<!-- BTS background -->
 <div class="bts" id="bts"></div>
 
 <!-- Card -->
@@ -104,14 +103,14 @@ button{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;font-
   <div id="yesScreen" class="hidden">
     <h1>💜 She said YES 💜</h1>
     <p>You just made my heart dance 🥰</p>
-    <img src="https://media.giphy.com/media/l0MYrBf2pck1a5Vig/giphy.gif" alt="V dancing">
+    <img src="https://media.giphy.com/media/1wXkZCzWZt6zQc4MZC/giphy.gif" alt="BTS V dancing">
   </div>
 </div>
 
 <div id="gsHeart" class="gs-heart hidden">❤️<span>G & S</span></div>
 
 <script>
-// Quiz logic
+// Quiz
 const quiz=[
   {q:"What is my favorite food?",options:["Pizza","Biryani","Burger","Dosa"],answer:"Biryani"},
   {q:"Where did I first propose you?",options:["Restaurant","Beach","On foot path","Temple"],answer:"On foot path"},
@@ -202,23 +201,28 @@ function yesClicked(){
 // Start quiz
 loadQ();
 
-// Add BTS GIFs floating in pink area
+// Add BTS images all over pink space
 const btsUrls=[
-"https://media.giphy.com/media/3o7abld2L7m9h3p1du/giphy.gif",
 "https://media.giphy.com/media/l0HlQ7LRalJf4hUBq/giphy.gif",
 "https://media.giphy.com/media/xUOwGmZ3HV7P8Kkm2A/giphy.gif",
 "https://media.giphy.com/media/xUOwGmZ1XhLkTtwqTq/giphy.gif",
-"https://media.giphy.com/media/xUOwGmZ1YnwZ0pBrb6/giphy.gif"
+"https://media.giphy.com/media/xUOwGmZ1YnwZ0pBrb6/giphy.gif",
+"https://media.giphy.com/media/xUOwGmZ1Y8Ho3c4a3y/giphy.gif"
 ];
 
 const container=document.getElementById("bts");
-btsUrls.forEach(url=>{
-  let img=document.createElement("img");
-  img.src=url;
-  img.style.top=Math.random()*80+"%";
-  img.style.left=Math.random()*80+"%";
-  container.appendChild(img);
-});
+
+// Fill the pink space with multiple images
+for(let y=0;y<8;y++){ // rows
+  for(let x=0;x<6;x++){ // columns
+    let img=document.createElement("img");
+    let url=btsUrls[Math.floor(Math.random()*btsUrls.length)];
+    img.src=url;
+    img.style.top=(y*12+Math.random()*8)+"%";
+    img.style.left=(x*16+Math.random()*4)+"%";
+    container.appendChild(img);
+  }
+}
 </script>
 </body>
 </html>
