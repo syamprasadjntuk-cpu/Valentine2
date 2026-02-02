@@ -21,7 +21,7 @@ html, body {
   min-height:450px;
   text-align:center;
   box-shadow:0 8px 25px rgba(0,0,0,0.3);
-  z-index:10;
+  z-index:20;
   position:relative;
   margin:50px auto;
 }
@@ -46,15 +46,18 @@ button{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;font-
 @keyframes shake{0%{transform:rotate(0);}25%{transform:rotate(-10deg);}50%{transform:rotate(10deg);}100%{transform:rotate(0);}}
 
 /* Floating purple hearts */
-.heart{position:fixed;bottom:0;font-size:24px;color:purple;animation:float 4s linear forwards;}
+.heart{position:fixed;bottom:0;font-size:24px;color:purple;animation:float 4s linear forwards; pointer-events:none;}
+.big-heart{font-size:60px !important;}
+
+/* Floating animation */
 @keyframes float{to{transform:translateY(-100vh);opacity:0;}}
 
 /* G & S heart */
 .gs-heart{
   position:fixed;top:50%;left:50%;
-  transform:translate(-50%,-50%) scale(1);
+  transform:translate(-50%,-50%);
   font-size:80px;color:#e91e63;
-  z-index:11;text-align:center;
+  z-index:50;text-align:center;
 }
 .gs-heart span{
   display:block;
@@ -63,21 +66,22 @@ button{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;font-
 }
 
 /* YES screen image */
-#yesScreen img{width:200px;margin-top:20px;}
+#yesScreen img{width:200px;margin-top:20px;z-index:30;}
 
-/* BTS background */
+/* BTS background images */
 .bts img{
   position:absolute;
-  width:60px;
-  height:60px;
-  opacity:0.4;
+  width:70px;
+  height:70px;
+  opacity:0.5;
   pointer-events:none;
   border-radius:10px;
-  animation:floatBTS 20s linear infinite;
+  z-index:5;
+  animation:floatBTS linear infinite;
 }
 @keyframes floatBTS{
   0%{transform:translateY(0px);}
-  50%{transform:translateY(-100px);}
+  50%{transform:translateY(-30px);}
   100%{transform:translateY(0px);}
 }
 </style>
@@ -103,7 +107,8 @@ button{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;font-
   <div id="yesScreen" class="hidden">
     <h1>💜 She said YES 💜</h1>
     <p>You just made my heart dance 🥰</p>
-    <img src="https://media.giphy.com/media/1wXkZCzWZt6zQc4MZC/giphy.gif" alt="BTS V dancing">
+    <!-- Static BTS V image -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/V_BTS_2020.png" alt="BTS V dancing">
   </div>
 </div>
 
@@ -189,9 +194,10 @@ function yesClicked(){
   heart.classList.remove("hidden");
   setTimeout(()=>heart.classList.add("hidden"),3000);
 
+  // Purple hearts bigger
   setInterval(()=>{
     let h=document.createElement("div");
-    h.className="heart"; h.innerText="💜";
+    h.className="heart big-heart"; h.innerText="💜";
     h.style.left=Math.random()*100+"%";
     document.body.appendChild(h);
     setTimeout(()=>h.remove(),4000);
@@ -201,25 +207,33 @@ function yesClicked(){
 // Start quiz
 loadQ();
 
-// Add BTS images all over pink space
+// BTS images for background (members + logos + symbols)
 const btsUrls=[
-"https://media.giphy.com/media/l0HlQ7LRalJf4hUBq/giphy.gif",
-"https://media.giphy.com/media/xUOwGmZ3HV7P8Kkm2A/giphy.gif",
-"https://media.giphy.com/media/xUOwGmZ1XhLkTtwqTq/giphy.gif",
-"https://media.giphy.com/media/xUOwGmZ1YnwZ0pBrb6/giphy.gif",
-"https://media.giphy.com/media/xUOwGmZ1Y8Ho3c4a3y/giphy.gif"
+"https://upload.wikimedia.org/wikipedia/commons/0/0c/BTS_members_2020.jpg",
+"https://upload.wikimedia.org/wikipedia/commons/2/28/V_BTS_2020.png",
+"https://upload.wikimedia.org/wikipedia/commons/6/60/Jin_BTS.png",
+"https://upload.wikimedia.org/wikipedia/commons/3/34/Jungkook_BTS.png",
+"https://upload.wikimedia.org/wikipedia/commons/e/e8/Suga_BTS.png",
+"https://upload.wikimedia.org/wikipedia/commons/f/f7/J-Hope_BTS.png",
+"https://upload.wikimedia.org/wikipedia/commons/0/0a/RM_BTS.png",
+"https://upload.wikimedia.org/wikipedia/commons/2/2c/Jimin_BTS.png",
+"https://upload.wikimedia.org/wikipedia/commons/d/d3/BTS_logo.png",
+"https://upload.wikimedia.org/wikipedia/commons/7/74/BTS_lightstick.png"
 ];
 
 const container=document.getElementById("bts");
-
-// Fill the pink space with multiple images
-for(let y=0;y<8;y++){ // rows
-  for(let x=0;x<6;x++){ // columns
+// Fill pink space with floating BTS images
+for(let y=0;y<10;y++){
+  for(let x=0;x<8;x++){
     let img=document.createElement("img");
     let url=btsUrls[Math.floor(Math.random()*btsUrls.length)];
     img.src=url;
-    img.style.top=(y*12+Math.random()*8)+"%";
-    img.style.left=(x*16+Math.random()*4)+"%";
+    img.style.top=(y*10+Math.random()*5)+"%";
+    img.style.left=(x*12+Math.random()*5)+"%";
+    img.style.animationDuration=(5+Math.random()*5)+"s";
+    img.style.animationDelay=(Math.random()*5)+"s";
+    img.style.animationIterationCount="infinite";
+    img.style.animationName="floatBTS";
     container.appendChild(img);
   }
 }
