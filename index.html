@@ -46,40 +46,42 @@ button{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;font-
 @keyframes shake{0%{transform:rotate(0);}25%{transform:rotate(-10deg);}50%{transform:rotate(10deg);}100%{transform:rotate(0);}}
 
 /* Floating purple hearts */
-.heart{position:fixed;bottom:0;font-size:24px;color:purple;animation:float 4s linear forwards; pointer-events:none;}
-.big-heart{font-size:60px !important;}
+.heart{position:fixed;bottom:0;font-size:50px;color:purple;animation:float 4s linear forwards; pointer-events:none;}
+.big-heart{font-size:80px !important;}
 
 /* Floating animation */
 @keyframes float{to{transform:translateY(-100vh);opacity:0;}}
 
-/* G & S heart */
+/* Red G&S heart below card */
 .gs-heart{
-  position:fixed;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  font-size:80px;color:#e91e63;
-  z-index:50;text-align:center;
+  position:absolute; top:100%; left:50%;
+  transform:translate(-50%,10%);
+  font-size:120px;
+  color:red;
+  z-index:30;
+  text-align:center;
 }
 .gs-heart span{
-  display:block;
-  font-size:30px;color:white;font-weight:bold;
-  margin-top:-50px;
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  font-size:50px; color:white; font-weight:bold;
 }
 
 /* YES screen image */
-#yesScreen img{width:200px;margin-top:20px;z-index:30;}
+#yesScreen img{width:250px;margin-top:20px;z-index:30; border-radius:20px;}
 
-/* BTS background images */
-.bts img{
+/* Background images */
+.bg img{
   position:absolute;
-  width:70px;
-  height:70px;
+  width:100px;
+  height:100px;
   opacity:0.5;
   pointer-events:none;
   border-radius:10px;
-  z-index:5;
-  animation:floatBTS linear infinite;
+  animation:floatBg linear infinite;
 }
-@keyframes floatBTS{
+@keyframes floatBg{
   0%{transform:translateY(0px);}
   50%{transform:translateY(-30px);}
   100%{transform:translateY(0px);}
@@ -88,8 +90,8 @@ button{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;font-
 </head>
 <body>
 
-<!-- BTS background -->
-<div class="bts" id="bts"></div>
+<!-- Background love images -->
+<div class="bg" id="bg"></div>
 
 <!-- Card -->
 <div class="card">
@@ -107,12 +109,11 @@ button{width:100%;padding:12px;margin:6px 0;border-radius:20px;border:none;font-
   <div id="yesScreen" class="hidden">
     <h1>💜 She said YES 💜</h1>
     <p>You just made my heart dance 🥰</p>
-    <!-- Static BTS V image -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/V_BTS_2020.png" alt="BTS V dancing">
+    <!-- Love image -->
+    <img src="https://images.unsplash.com/photo-1516728778615-2d590ea1856f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTI0MXwwfDF8c2VhcmNofDF8fGxvdmV8ZW58MHx8fHwxNjg3NDYyNjU5&ixlib=rb-4.0.3&q=80&w=400" alt="Love image">
   </div>
+  <div id="gsHeart" class="gs-heart hidden">❤️<span>G & S</span></div>
 </div>
-
-<div id="gsHeart" class="gs-heart hidden">❤️<span>G & S</span></div>
 
 <script>
 // Quiz
@@ -190,11 +191,11 @@ function yesClicked(){
   document.getElementById("valentine").classList.add("hidden");
   document.getElementById("yesScreen").classList.remove("hidden");
 
+  // Show big red G&S heart below card
   const heart=document.getElementById("gsHeart");
   heart.classList.remove("hidden");
-  setTimeout(()=>heart.classList.add("hidden"),3000);
 
-  // Purple hearts bigger
+  // Floating purple hearts (bigger)
   setInterval(()=>{
     let h=document.createElement("div");
     h.className="heart big-heart"; h.innerText="💜";
@@ -207,34 +208,26 @@ function yesClicked(){
 // Start quiz
 loadQ();
 
-// BTS images for background (members + logos + symbols)
-const btsUrls=[
-"https://upload.wikimedia.org/wikipedia/commons/0/0c/BTS_members_2020.jpg",
-"https://upload.wikimedia.org/wikipedia/commons/2/28/V_BTS_2020.png",
-"https://upload.wikimedia.org/wikipedia/commons/6/60/Jin_BTS.png",
-"https://upload.wikimedia.org/wikipedia/commons/3/34/Jungkook_BTS.png",
-"https://upload.wikimedia.org/wikipedia/commons/e/e8/Suga_BTS.png",
-"https://upload.wikimedia.org/wikipedia/commons/f/f7/J-Hope_BTS.png",
-"https://upload.wikimedia.org/wikipedia/commons/0/0a/RM_BTS.png",
-"https://upload.wikimedia.org/wikipedia/commons/2/2c/Jimin_BTS.png",
-"https://upload.wikimedia.org/wikipedia/commons/d/d3/BTS_logo.png",
-"https://upload.wikimedia.org/wikipedia/commons/7/74/BTS_lightstick.png"
+// Random love images background
+const loveUrls=[
+  "https://images.unsplash.com/photo-1516728778615-2d590ea1856f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100",
+  "https://images.unsplash.com/photo-1502550907597-31c1c15d9f72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100",
+  "https://images.unsplash.com/photo-1513791051568-1c1b9449e7bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100",
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100",
+  "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100"
 ];
-
-const container=document.getElementById("bts");
-// Fill pink space with floating BTS images
+const bg=document.getElementById("bg");
 for(let y=0;y<10;y++){
   for(let x=0;x<8;x++){
     let img=document.createElement("img");
-    let url=btsUrls[Math.floor(Math.random()*btsUrls.length)];
-    img.src=url;
-    img.style.top=(y*10+Math.random()*5)+"%";
+    img.src=loveUrls[Math.floor(Math.random()*loveUrls.length)];
+    img.style.top=(y*12+Math.random()*5)+"%";
     img.style.left=(x*12+Math.random()*5)+"%";
     img.style.animationDuration=(5+Math.random()*5)+"s";
     img.style.animationDelay=(Math.random()*5)+"s";
     img.style.animationIterationCount="infinite";
-    img.style.animationName="floatBTS";
-    container.appendChild(img);
+    img.style.animationName="floatBg";
+    bg.appendChild(img);
   }
 }
 </script>
